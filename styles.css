@@ -83,4 +83,5 @@ body {
     font-family: 'Courier New', Courier, monospace;
     color: white;
     text-align: right;
+    overflow: hidden;
 }
