@@ -92,6 +92,13 @@ function opPress(operator) {
     if (operator == '=') {
         let sum = operate(chosenOperator, firstNum, secondNum);
         display.textContent = sum;
+        if (display.textContent.length > 5) {
+            document.getElementById('display').style.fontSize = "70px";
+        } else if (display.textContent.length > 8) {
+            document.getElementById('display').style.fontSize = "50px";
+        } else if (display.textContent.length > 10) {
+            document.getElementById('display').style.fontSize = "30px";
+        }
     }
 
 }
