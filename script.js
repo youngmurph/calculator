@@ -1,17 +1,13 @@
-function add(x, y) {
-    return x + y;
-}
+const add = (x , y) => x + y;
+const subtract = (x, y) => x - y;
+const multiply = (x, y) => x * y;
+const divide = (x, y) => x / y;
 
-function subtract(x, y) {
-    return x - y;
-}
-
-function multiply(x, y) {
-    return x * y;
-}
-
-function divide(x, y) {
-    return x / y;
+const operations = {
+    add,
+    subtract,
+    multiply,
+    divide
 }
 
 const display = document.getElementById('display');
@@ -19,6 +15,10 @@ const operators = document.getElementById('operators');
 /* const numbers = document.getElementsByClassName('number-button'); */
 const button = document.querySelector('button');
 const clearAll = document.getElementById('clear-button'); 
+/* const plus = '+';
+const minus = '-';
+const multiplication = '*';
+const division = '/'; */
 let defaultVal = 0;
 display.textContent = defaultVal;
 
@@ -42,40 +42,59 @@ function numPress(num) {
     }
 }
 
+function operate(operator, firstNum, secondNum) {
+
+    if (operator == 'plus') {
+       return firstNum + secondNum;
+    } else if (operator == 'minus') {
+       return firstNum - secondNum;
+    } else if (operator == 'multiply') {
+       return firstNum * secondNum;
+    } else if (operator == 'divide') {
+       return firstNum / secondNum;
+    }
+
+}
+
+let firstNum = '';
+let secondNum = '';
+let chosenOperator = '';
+
 function opPress(operator) {
-    if (operator == '.') {
+
+    if (operator == '.' && display.textContent.indexOf('.') === -1) {
         display.textContent += operator;
     } else if (operator == 'AC') {
         display.textContent = 0;
-    } else if (operator == '+' || operator == '-' || operator == '*' || operator == '/') {
-        firstNum = display.textContent;
+        firstNum = 0;
+    } else if (operator == '+') {
+        chosenOperator = 'plus';
+        firstNum = Number(display.textContent);
+        display.textContent = 0;
+    } else if (operator == '-') {
+        chosenOperator = 'minus';
+        firstNum = Number(display.textContent);
+        display.textContent = 0;
+    } else if (operator == '*') {
+        chosenOperator = 'multiply';
+        firstNum = Number(display.textContent);
+        display.textContent = 0;
+    } else if (operator == '/') {
+        chosenOperator = 'divide';
+        firstNum = Number(display.textContent);
         display.textContent = 0;
     }
 
     if (firstNum > 0 && operator == '=') {
-        secondNum = display.textContent;
-        let sum = operate(operator, firstNum, secondNum);
+        secondNum = Number(display.textContent);
+    }
+
+    if (operator == '=') {
+        let sum = operate(chosenOperator, firstNum, secondNum);
         display.textContent = sum;
     }
+
 }
 
-let firstNum = {};
-let secondNum = {};
-let operator = {
-    plus : document.getElementById('plus-button'),
-    minus : document.getElementById('minus-button'),
-    multiplication : document.getElementById('multiply-button'),
-    division : document.getElementById('divide-button'),
-};
 
-function operate(operator, firstNum, secondNum) {
-    if (operator === '+') {
-        add(firstNum, secondNum)
-    } else if (operator === '-') {
-        subtract(firstNum, secondNum)
-    } else if (operator === '*') {
-        multiply(firstNum, secondNum)
-    } else if (operator === '/') {
-        divide(firstNum, secondNum)
-    }
-}
+
