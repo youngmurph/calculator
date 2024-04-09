@@ -74,12 +74,15 @@ body {
 }
 
 #display {
+    display: flex;
+    align-items: center;
+    justify-content: end;
     height: 100px;
     width: 322px;
     border: 1px solid black;
     margin: 10px;
     background-color: #454545;
-    font-size: 100px;
+    font-size: 60px;
     font-family: 'Courier New', Courier, monospace;
     color: white;
     text-align: right;

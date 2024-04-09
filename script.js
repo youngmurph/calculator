@@ -37,7 +37,7 @@ document.querySelectorAll(".operator-button").forEach(element => {
 function numPress(num) {
     if (display.textContent == '0' && num > 0) {
         display.textContent = num;
-    } else if (num >= 0 && display.textContent.length < 5) {
+    } else if (num >= 0 && display.textContent.length < 8) {
         display.textContent += num;
     }
 }
@@ -56,8 +56,8 @@ function operate(operator, firstNum, secondNum) {
 
 }
 
-let firstNum = '';
-let secondNum = '';
+let firstNum = 0;
+let secondNum = 0;
 let chosenOperator = '';
 
 function opPress(operator) {
@@ -66,6 +66,7 @@ function opPress(operator) {
         display.textContent += operator;
     } else if (operator == 'AC') {
         display.textContent = 0;
+        document.getElementById('display').style.fontSize = "60px";
         firstNum = 0;
     } else if (operator == '+') {
         chosenOperator = 'plus';
@@ -92,10 +93,12 @@ function opPress(operator) {
     if (operator == '=') {
         let sum = operate(chosenOperator, firstNum, secondNum);
         display.textContent = sum;
-        if (display.textContent.length > 5) {
-            document.getElementById('display').style.fontSize = "70px";
-        } else if (display.textContent.length > 8) {
-            document.getElementById('display').style.fontSize = "50px";
+        firstNum = sum;
+
+        if (display.textContent.length > 5 && display.textContent.length < 8) {
+            document.getElementById('display').style.fontSize = "60px";
+        } else if (display.textContent.length > 8 && display.textContent.length < 10) {
+            document.getElementById('display').style.fontSize = "30px";
         } else if (display.textContent.length > 10) {
             document.getElementById('display').style.fontSize = "30px";
         }
