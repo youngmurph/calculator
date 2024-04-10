@@ -1,15 +1,3 @@
-const add = (x , y) => x + y;
-const subtract = (x, y) => x - y;
-const multiply = (x, y) => x * y;
-const divide = (x, y) => x / y;
-
-const operations = {
-    add,
-    subtract,
-    multiply,
-    divide
-}
-
 const display = document.getElementById('display');
 const operators = document.getElementById('operators');
 const button = document.querySelector('button');
@@ -53,7 +41,7 @@ function operate(operator, firstNum, secondNum) {
 
 let firstNum = 0;
 let secondNum = 0;
-let displayNum = 0;
+let product = 0;
 let chosenOperator = '';
 
 function opPress(operator) {
@@ -80,16 +68,19 @@ function opPress(operator) {
         chosenOperator = 'divide';
         firstNum = Number(display.textContent);
         display.textContent = 0;
-    }
+    } 
 
     if (firstNum > 0 && operator == '=') {
         secondNum = Number(display.textContent);
-    }
+    } 
 
     if (operator == '=') {
         let sum = operate(chosenOperator, firstNum, secondNum);
-        display.textContent = sum;
-        firstNum = sum;
+        if (Number.isInteger(sum) === true) {
+            display.textContent = sum;
+        } else {
+            display.textContent = ((sum * 10) / 10).toFixed(1);
+        }
 
         if (display.textContent.length > 5 && display.textContent.length < 8) {
             document.getElementById('display').style.fontSize = "60px";
