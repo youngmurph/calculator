@@ -43,6 +43,7 @@ let firstNum = 0;
 let secondNum = 0;
 let product = 0;
 let chosenOperator = '';
+let lastOperator = '';
 
 function opPress(operator) {
 
@@ -51,35 +52,62 @@ function opPress(operator) {
     } else if (operator == 'AC') {
         display.textContent = 0;
         document.getElementById('display').style.fontSize = "60px";
-        firstNum = 0;
-    } else if (operator == '+') {
+    } else if (operator == '+' && firstNum == 0) {
         chosenOperator = 'plus';
         firstNum = Number(display.textContent);
         display.textContent = 0;
-    } else if (operator == '-') {
+    } else if (operator == '-' && firstNum == 0) {
         chosenOperator = 'minus';
         firstNum = Number(display.textContent);
         display.textContent = 0;
-    } else if (operator == '*') {
+    } else if (operator == '*' && firstNum == 0) {
         chosenOperator = 'multiply';
         firstNum = Number(display.textContent);
         display.textContent = 0;
-    } else if (operator == '/') {
+    } else if (operator == '/' && firstNum == 0) {
         chosenOperator = 'divide';
         firstNum = Number(display.textContent);
         display.textContent = 0;
-    } 
+    }
+
+    if (firstNum > 0 && operator == '+') {
+        chosenOperator = 'plus'
+        product = Number(display.textContent) + firstNum;
+        firstNum = product;
+        display.textContent = 0;
+    } else if (firstNum > 0 && operator == '-') {
+        chosenOperator = 'minus'
+        product = Number(display.textContent) - firstNum;
+        firstNum = product;
+        display.textContent = 0;
+    } else if (firstNum > 0 && operator == '*') {
+        chosenOperator = 'multiply'
+        product = Number(display.textContent) * firstNum;
+        firstNum = product;
+        display.textContent = 0;
+    } else if (firstNum > 0 && operator == '/') {
+        chosenOperator = 'divide'
+        product = Number(display.textContent) / firstNum;
+        firstNum = product;
+        display.textContent = 0;
+    }
+
+    console.log(firstNum, secondNum);
 
     if (firstNum > 0 && operator == '=') {
         secondNum = Number(display.textContent);
-    } 
+    }
 
     if (operator == '=') {
         let sum = operate(chosenOperator, firstNum, secondNum);
         if (Number.isInteger(sum) === true) {
             display.textContent = sum;
+            firstNum = 0;
+            secondNum = 0;
         } else {
             display.textContent = ((sum * 10) / 10).toFixed(1);
+            firstNum = 0;
+            secondNum = 0;
         }
 
         if (display.textContent.length > 5 && display.textContent.length < 8) {
@@ -87,6 +115,7 @@ function opPress(operator) {
         } else if (display.textContent.length > 8) {
             document.getElementById('display').style.fontSize = "30px";
         }
+
     }
 
 }
