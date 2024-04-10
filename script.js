@@ -12,13 +12,8 @@ const operations = {
 
 const display = document.getElementById('display');
 const operators = document.getElementById('operators');
-/* const numbers = document.getElementsByClassName('number-button'); */
 const button = document.querySelector('button');
 const clearAll = document.getElementById('clear-button'); 
-/* const plus = '+';
-const minus = '-';
-const multiplication = '*';
-const division = '/'; */
 let defaultVal = 0;
 display.textContent = defaultVal;
 
@@ -58,6 +53,7 @@ function operate(operator, firstNum, secondNum) {
 
 let firstNum = 0;
 let secondNum = 0;
+let displayNum = 0;
 let chosenOperator = '';
 
 function opPress(operator) {
@@ -97,9 +93,7 @@ function opPress(operator) {
 
         if (display.textContent.length > 5 && display.textContent.length < 8) {
             document.getElementById('display').style.fontSize = "60px";
-        } else if (display.textContent.length > 8 && display.textContent.length < 10) {
-            document.getElementById('display').style.fontSize = "30px";
-        } else if (display.textContent.length > 10) {
+        } else if (display.textContent.length > 8) {
             document.getElementById('display').style.fontSize = "30px";
         }
     }
