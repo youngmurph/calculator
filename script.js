@@ -51,6 +51,8 @@ function opPress(operator) {
         display.textContent += operator;
     } else if (operator == 'AC') {
         display.textContent = 0;
+        firstNum = 0;
+        secondNum = 0;
         document.getElementById('display').style.fontSize = "60px";
     } else if (operator == '+' && firstNum == 0) {
         chosenOperator = 'plus';
@@ -70,44 +72,38 @@ function opPress(operator) {
         display.textContent = 0;
     }
 
+    if (firstNum > 0 && secondNum > 0 && operator == '-') {
+        chosenOperator = 'minus';
+        product = firstNum - secondNum;
+        firstNum = product;
+        display.textContent = 0;
+    } else if (firstNum > 0 && secondNum > 0 && operator == '*') {
+        chosenOperator = 'multiply';
+        product = firstNum * secondNum;
+        firstNum = product;
+        display.textContent = 0;
+    } else if (firstNum > 0 && secondNum > 0 && operator == '/') {
+        chosenOperator = 'divide';
+        product = firstNum / secondNum;
+        firstNum = product;
+        display.textContent = 0;
+    } 
+
     if (firstNum > 0 && operator == '+') {
         chosenOperator = 'plus'
-        product = Number(display.textContent) + firstNum;
+        secondNum = Number(display.textContent); 
+        product = firstNum + secondNum;
         firstNum = product;
         display.textContent = 0;
-    } else if (firstNum > 0 && operator == '-') {
-        chosenOperator = 'minus'
-        product = Number(display.textContent) - firstNum;
-        firstNum = product;
-        display.textContent = 0;
-    } else if (firstNum > 0 && operator == '*') {
-        chosenOperator = 'multiply'
-        product = Number(display.textContent) * firstNum;
-        firstNum = product;
-        display.textContent = 0;
-    } else if (firstNum > 0 && operator == '/') {
-        chosenOperator = 'divide'
-        product = Number(display.textContent) / firstNum;
-        firstNum = product;
-        display.textContent = 0;
-    }
-
-    console.log(firstNum, secondNum);
+    } 
 
     if (firstNum > 0 && operator == '=') {
         secondNum = Number(display.textContent);
-    }
-
-    if (operator == '=') {
         let sum = operate(chosenOperator, firstNum, secondNum);
         if (Number.isInteger(sum) === true) {
             display.textContent = sum;
-            firstNum = 0;
-            secondNum = 0;
         } else {
             display.textContent = ((sum * 10) / 10).toFixed(1);
-            firstNum = 0;
-            secondNum = 0;
         }
 
         if (display.textContent.length > 5 && display.textContent.length < 8) {
