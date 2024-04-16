@@ -24,7 +24,9 @@ document.querySelectorAll(".operator-button").forEach(element => {
 });
 
 function numPress(num) {
-    if (display.textContent == '0' && num > 0) {
+    if (display.textContent.length > 1) {
+        display.textContent += num;
+    } else if (display.textContent == 0 && num > 0) {
         display.textContent = num;
     } else if (num >= 0 && display.textContent.length < 8) {
         display.textContent += num;
@@ -84,6 +86,16 @@ function opPress(operator) {
         }
     }
 
+    if (firstNum == result && operator == '=') {
+        secondNum = parseFloat(display.textContent);
+        result = operate(firstNum, secondNum, chosenOperator);
+        firstNum = result;
+        if (Number(result).isInteger === false) {
+            display.textContent = Number(result).toFixed(1);
+        } else {
+            display.textContent = result;
+        }
+    }
 
 }
 
