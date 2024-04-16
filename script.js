@@ -23,11 +23,6 @@ document.querySelectorAll(".operator-button").forEach(element => {
     })
 });
 
-/* function displayVal(e) {
-    let displayVal = e.target.textContent;
-    display.textContent += displayVal;
-} */
-
 function numPress(num) {
     if (display.textContent == '0' && num > 0) {
         display.textContent = num;
@@ -58,6 +53,10 @@ function opPress(operator) {
         secondNum = 0;
     }
 
+    if (operator == '.' && display.textContent > 0) {
+        display.textContent += '.';
+    }
+
     if (operator == '+' && firstNum == 0) {
         firstNum = parseFloat(display.textContent);
         chosenOperator = 'plus';
@@ -78,7 +77,11 @@ function opPress(operator) {
         secondNum = parseFloat(display.textContent);
         const result = operate(firstNum, secondNum, chosenOperator);
         firstNum = result;
-        display.textContent = result;
+        if (Number(result).isInteger === false) {
+            display.textContent = Number(result).toFixed(1);
+        } else {
+            display.textContent = result;
+        }
     }
 
 
