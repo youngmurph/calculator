@@ -1,9 +1,15 @@
 const display = document.getElementById('display');
+const numbers = document.getElementsByClassName('.number-button');
 const operators = document.getElementById('operators');
 const button = document.querySelector('button');
 const clearAll = document.getElementById('clear-button'); 
-let defaultVal = 0;
-display.textContent = defaultVal;
+display.textContent = 0;
+
+let firstNum = 0;
+let secondNum = 0;
+let result = 0;
+let chosenOperator = '';
+
 
 document.querySelectorAll(".number-button").forEach(element => {
     element.addEventListener('click', () => {
@@ -17,6 +23,11 @@ document.querySelectorAll(".operator-button").forEach(element => {
     })
 });
 
+/* function displayVal(e) {
+    let displayVal = e.target.textContent;
+    display.textContent += displayVal;
+} */
+
 function numPress(num) {
     if (display.textContent == '0' && num > 0) {
         display.textContent = num;
@@ -25,7 +36,7 @@ function numPress(num) {
     }
 }
 
-function operate(operator, firstNum, secondNum) {
+function operate(firstNum, secondNum, operator) {
 
     if (operator == 'plus') {
        return firstNum + secondNum;
@@ -39,82 +50,38 @@ function operate(operator, firstNum, secondNum) {
 
 }
 
-let firstNum = 0;
-let secondNum = 0;
-let product = 0;
-let chosenOperator = '';
-let lastOperator = '';
-
 function opPress(operator) {
 
-    if (operator == '.' && display.textContent.indexOf('.') === -1) {
-        display.textContent += operator;
-    } else if (operator == 'AC') {
+    if (operator == 'AC') {
         display.textContent = 0;
         firstNum = 0;
         secondNum = 0;
-        document.getElementById('display').style.fontSize = "60px";
-    } else if (operator == '+' && firstNum == 0) {
+    }
+
+    if (operator == '+' && firstNum == 0) {
+        firstNum = parseFloat(display.textContent);
         chosenOperator = 'plus';
-        firstNum = Number(display.textContent);
         display.textContent = 0;
     } else if (operator == '-' && firstNum == 0) {
+        firstNum = parseFloat(display.textContent);
         chosenOperator = 'minus';
-        firstNum = Number(display.textContent);
         display.textContent = 0;
-    } else if (operator == '*' && firstNum == 0) {
+    }  else if (operator == '*' && firstNum == 0) {
+        firstNum = parseFloat(display.textContent);
         chosenOperator = 'multiply';
-        firstNum = Number(display.textContent);
         display.textContent = 0;
-    } else if (operator == '/' && firstNum == 0) {
+    }  else if (operator == '/' && firstNum == 0) {
+        firstNum = parseFloat(display.textContent);
         chosenOperator = 'divide';
-        firstNum = Number(display.textContent);
         display.textContent = 0;
+    } else if (operator == '=') {
+        secondNum = parseFloat(display.textContent);
+        const result = operate(firstNum, secondNum, chosenOperator);
+        firstNum = result;
+        display.textContent = result;
     }
 
-    if (firstNum > 0 && secondNum > 0 && operator == '-') {
-        chosenOperator = 'minus';
-        product = firstNum - secondNum;
-        firstNum = product;
-        display.textContent = 0;
-    } else if (firstNum > 0 && secondNum > 0 && operator == '*') {
-        chosenOperator = 'multiply';
-        product = firstNum * secondNum;
-        firstNum = product;
-        display.textContent = 0;
-    } else if (firstNum > 0 && secondNum > 0 && operator == '/') {
-        chosenOperator = 'divide';
-        product = firstNum / secondNum;
-        firstNum = product;
-        display.textContent = 0;
-    } 
-
-    if (firstNum > 0 && operator == '+') {
-        chosenOperator = 'plus'
-        secondNum = Number(display.textContent); 
-        product = firstNum + secondNum;
-        firstNum = product;
-        display.textContent = 0;
-    } 
-
-    if (firstNum > 0 && operator == '=') {
-        secondNum = Number(display.textContent);
-        let sum = operate(chosenOperator, firstNum, secondNum);
-        if (Number.isInteger(sum) === true) {
-            display.textContent = sum;
-        } else {
-            display.textContent = ((sum * 10) / 10).toFixed(1);
-        }
-
-        if (display.textContent.length > 5 && display.textContent.length < 8) {
-            document.getElementById('display').style.fontSize = "60px";
-        } else if (display.textContent.length > 8) {
-            document.getElementById('display').style.fontSize = "30px";
-        }
-
-    }
 
 }
-
 
 
